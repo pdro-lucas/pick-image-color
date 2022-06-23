@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      height: 100px;
+      background: rgb(2, 0, 36);
+      background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.2) 100%);
+      ;
+    }
+
+    body {
+      height: 100vh;
+    }
+
+    .image-container {
+      height: calc(100vh - 100px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .title {
+      margin-bottom: 30px;
+    }
+
+    img {
+      border-radius: 10px;
+    }
+  </style>
+  <title>Get dominant color from image</title>
+</head>
+
+<body>
+  <header></header>
+  <div class="image-container">
+    <h1 class="title">Color Picker</h1>
+    <img src="./4.jpg" class="main-image" height="300px">
+  </div>
+  <script src="https://unpkg.com/fast-average-color/dist/index.browser.min.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+      const fac = new FastAverageColor();
+      const headerColor = document.querySelector('header');
+      const image = document.querySelector('.main-image')
+
+      fac.getColorAsync(image).then(color => headerColor.style.background = `linear-gradient(180deg, ${color.rgba} 0%, rgba(255,255,255,0.5) 80%, rgba(255,255,255,0.8) 100%)`);
+    });
+  </script>
+</body>
+
+</html>

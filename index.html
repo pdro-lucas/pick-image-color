@@ -38,6 +38,14 @@
     img {
       border-radius: 10px;
     }
+
+    .result {
+      margin-top: 30px;
+    }
+
+    .result p {
+      margin-bottom: 15px;
+    }
   </style>
   <title>Get dominant color from image</title>
 </head>
@@ -46,16 +54,28 @@
   <header></header>
   <div class="image-container">
     <h1 class="title">Color Picker</h1>
-    <img src="./4.jpg" class="main-image" height="300px">
+    <img src="./6.jpeg" class="main-image" height="300px">
+    <div class="result"></div>
   </div>
   <script src="https://unpkg.com/fast-average-color/dist/index.browser.min.js"></script>
   <script>
     window.addEventListener('load', function() {
       const fac = new FastAverageColor();
       const headerColor = document.querySelector('header');
+      const result = document.querySelector('.result');
       const image = document.querySelector('.main-image')
 
-      fac.getColorAsync(image).then(color => headerColor.style.background = `linear-gradient(180deg, ${color.rgba} 0%, rgba(255,255,255,0.5) 80%, rgba(255,255,255,0.8) 100%)`);
+      fac.getColorAsync(image).then(color => {
+        headerColor.style.background = `linear-gradient(180deg, ${color.rgba} 0%, rgba(255,255,255,0.5) 80%, rgba(255,255,255,0.8) 100%)`
+        result.innerHTML = `
+          <p>RGBA: ${color.rgba}</p>
+          <p>RGB${color.rgb}</p>
+          <p>HEX: ${color.hex}</p>
+          <p>HEXA: ${color.hexa}</p>
+          <p>A cor é escura? ${color.isDark}</p>
+          <p>A cor é clara? ${color.isLight}</p>
+        `
+      });
     });
   </script>
 </body>
